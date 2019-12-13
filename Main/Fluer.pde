@@ -6,25 +6,13 @@ class Flue {
   float Heading = 0; 
   float scale = 1.2;
 
-  Flue() {
-    position.x  = random(0, height);
-    position.y  = random(0, width);
-    
-  }
-
-  Flue(float a, float b) {
-    position.x = a;
-    position.y = b;
-    
-  }
   Flue(float a) {
     position.x  = random(0, height);
     position.y  = random(0, width);
     scale = a;
-  
   }
 
- void chase() {
+  void chase() {
     PVector mouse = new PVector(mouseX, mouseY);
     mouse.sub(position);
     mouse.setMag(0.5);
@@ -33,7 +21,7 @@ class Flue {
     velocity.add(acceleration);
     position.add(velocity);
     velocity.mult(0.982);
-    velocity.limit(3);
+    velocity.limit(5);
   }
 
   void tegnFlue() {
@@ -58,6 +46,14 @@ class Flue {
     }
     if ((position.y > height) || (position.y < 0)) {
       velocity.y = velocity.y * -1;
+    }
+  }
+
+  void kill() {
+    if ((position.x > mouseX) && (position.x < (mouseX+d+5)) && (position.y > mouseY) && (position.y < (mouseY+d+5))) {
+      textSize(26);
+      text("You survived for " + millis()/1000 + " seconds", width/2, height/2);
+      noLoop();
     }
   }
 }
